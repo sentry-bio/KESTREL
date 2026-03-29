@@ -1,0 +1,46 @@
+{
+  "upload_type": "software",
+  "title": "KESTREL v1.0.0: Fast k-mer phylogenetic classifier model weights",
+  "description": "<p>Model weights for <strong>KESTREL</strong> (v1.0.0), a fast CPU-native DNA sequence classifier that places reads into the same Poincaré ball coordinate space as BiosphereAtlas.</p>\n\n<p>KESTREL uses adaptive pyramid CLR k-mer features (k=4,5,6) and a lightweight MLP to map DNA fragments directly to hyperbolic coordinates (κ=1.2505, 129-dimensional). It operates without GPU and returns results in 13–20 ms.</p>\n\n<h3>Files</h3>\n<ul>\n  <li><code>kestrel_nano_best.pt</code> — 13.9M params, 54 MB FP32. Default model.</li>\n  <li><code>kestrel_v5_best.pt</code> — 28.2M params, 108 MB FP32. Higher accuracy.</li>\n</ul>\n\n<h3>Performance</h3>\n<table>\n  <tr><th>~bp</th><th>nano cos</th><th>nano dom acc</th><th>v5 cos</th><th>v5 dom acc</th></tr>\n  <tr><td>51</td><td>0.802</td><td>62.8%</td><td>0.804</td><td>62.7%</td></tr>\n  <tr><td>254</td><td>0.878</td><td>84.8%</td><td>0.882</td><td>85.5%</td></tr>\n  <tr><td>509</td><td>0.917</td><td>93.9%</td><td>0.922</td><td>94.3%</td></tr>\n  <tr><td>1019</td><td>0.950</td><td>98.6%</td><td>0.954</td><td>98.5%</td></tr>\n  <tr><td>2611</td><td>0.976</td><td>99.1%</td><td>0.978</td><td>99.1%</td></tr>\n</table>\n\n<h3>Usage</h3>\n<pre>pip install kestrel-bio\nkestrel download nano\nkestrel classify --model ~/.kestrel/models/kestrel_nano_best.pt reads.fastq</pre>\n\n<p>Live API: <a href='https://api.biosphereatlas.com/kestrel/health'>api.biosphereatlas.com/kestrel</a></p>",
+
+  "creators": [
+    {"name": "Fenn, Rohit",  "affiliation": "Sentry Bio"},
+    {"name": "Fenn, Amit",   "affiliation": "Sentry Bio"}
+  ],
+
+  "license": "MIT",
+
+  "keywords": [
+    "bioinformatics",
+    "metagenomics",
+    "phylogenetics",
+    "k-mer",
+    "hyperbolic geometry",
+    "Poincare ball",
+    "short-read classification",
+    "deep learning",
+    "DNA",
+    "microbiome"
+  ],
+
+  "language": "eng",
+
+  "version": "1.0.0",
+
+  "related_identifiers": [
+    {
+      "relation":   "isSupplementTo",
+      "identifier": "PENDING_PAPER_DOI",
+      "scheme":     "doi"
+    },
+    {
+      "relation":   "isDocumentedBy",
+      "identifier": "https://api.biosphereatlas.com/kestrel/docs",
+      "scheme":     "url"
+    }
+  ],
+
+  "access_right": "open",
+
+  "notes": "Training corpus: 29,303 genomes (21,378 Bacteria, 5,402 Archaea, 2,523 Eukaryota). Coordinate space: Poincaré ball, κ=1.2505, 128+1 dimensions. Both models trained with length curriculum (phases at epochs 25/60/100). Tandem benchmark against BiosphereAtlas: 0.976 cosine coherence at 2611 bp, 94.4% domain accuracy at 509 bp. Checksum verification is performed automatically by `kestrel download`."
+}
